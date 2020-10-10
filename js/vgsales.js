@@ -30,6 +30,19 @@ function createBarChart(chartData, key) {
       x : "50"
      });
 
+  //   // Create scale
+  // var scale = d3.scale.linear()
+  //               .domain([d3.min(data), d3.max(data)])
+  //               .range([0, 800 - 100]);
+
+  // // Add scales to axis
+  // var x_axis = d3.svg.axis(scale)
+  //                .scale(scale);
+
+  // //Append group and insert axis
+  // svg.append("g")
+  //    .call(x_axis);
+
   //TODO: Title text location is hardcoded
   svg.append("text")
       .attr("x", 50)
@@ -53,6 +66,8 @@ function readDataFiles() {
     }
   });
 }
+
+//TODO: An init function that grabs the max values to create a scale at the top
 
 $(document).ready(function() {
   readDataFiles();
