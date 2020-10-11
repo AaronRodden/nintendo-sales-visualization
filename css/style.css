@@ -5,3 +5,14 @@
 .bar:hover {
   fill: orange;
 }
+
+.global-axis {
+    height: 64px; width: 100%;
+    position: fixed; left: 0; right: 0; top: auto;
+}
+
+body {
+	/*background: linear-gradient(to right, red , yellow);*/
+	/*background-color: coral;*/
+	background-color: #e0dcdb;
+}

@@ -14,7 +14,7 @@ function createBarChart(chartData, key, aggregates, scaleObj) {
     data.push(chartData[i]["Global_Sales"]);
   }
 
-  console.log(data);
+  // console.log(data);
 
   let div = d3.select('.nintendo-viz').append('div').classed(key,true);
 
@@ -29,7 +29,7 @@ function createBarChart(chartData, key, aggregates, scaleObj) {
     .append("rect")
     .attr({
       class : "bar",
-      width : function(d) {console.log(d); return scaleObj["scale"](d)},
+      width : function(d) {return scaleObj["scale"](d)},
       height: "40",
       y : function(d, i) {return i*50 + 10;},
       x : "10"
@@ -91,6 +91,15 @@ function createAxis(aggregates) {
   };
 }
 
+function insertPicture(key) {
+  var img = document.createElement("img"); 
+ 
+  img.src = `assets/${key}/${key}.png`; 
+  var src = document.getElementsByClassName("nintendo-viz")[0]; 
+   
+  src.appendChild(img); 
+}
+
 function readDataFiles() {
 
   $.getJSON("data/nintendo.json", function(json) {
@@ -103,12 +112,11 @@ function readDataFiles() {
     let scaleObj = createAxis(aggregates);
 
     for (let key in json){
+      insertPicture(key);
       createBarChart(json[key], key, aggregates, scaleObj);
     }
   });
 }
-
-//TODO: An init function that grabs the max values to create a scale at the top
 
 $(document).ready(function() {
   readDataFiles();
