@@ -5,7 +5,7 @@ const HEIGHT = 300;
 const TITLE_X_OFFSET = 750;
 const TITLE_Y_OFFSET = 20;
 // TODO: Fix this hardcoding
-let IMAGE_X_OFFSET = 276;
+let IMAGE_X_OFFSET = 387;
 let IMAGE_Y_OFFSET = 0;
 
 function createBarChart(chartData, key, div, aggregates, scaleObj) {
@@ -68,6 +68,8 @@ function createAxis(aggregates) {
   var x_axis = d3.svg.axis(scale)
                  .scale(scale);
 
+
+
   //Append group and insert axis
   scaleSvg.append("g")
      .attr("transform", "translate(" + IMAGE_X_OFFSET + "," + (10) + ")")
@@ -84,15 +86,15 @@ function insertPicture(key) {
   var img = document.createElement("img", {class : `${key}-img`});
 
   img.src = `assets/${key}/${key}.png`; 
-  // img.addEventListener('load', function () {
-  //   // console.log("It's loaded!")
-  // })
-  // img.onload = function() {
-  //   console.log("Width: " + this.width);
-  //   console.log("Height: " + this.height);
-  //   IMAGE_X_OFFSET = this.width;
-  //   IMAGE_Y_OFFSET = this.height;
-  // }
+  img.addEventListener('load', function () {
+    // console.log("It's loaded!")
+  })
+  img.onload = function() {
+    console.log("Width: " + this.width);
+    console.log("Height: " + this.height);
+    IMAGE_X_OFFSET = this.width;
+    IMAGE_Y_OFFSET = this.height;
+  }
 
   var src = document.getElementsByClassName(`${key}`)[0];
    
