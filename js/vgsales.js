@@ -23,17 +23,32 @@ function createBarChart(chartData, key, div, aggregates, scaleObj) {
             .attr("width", WIDTH + 100)
             .attr("height", HEIGHT)
 
+  var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    console.log(d);
+    return "<strong>Name:</strong> <span style='color:red'>" + d["Name"] + "</span>" + "<br>" +
+           "<strong>GlobalSales:</strong> <span style='color:red'>" + d["Global_Sales"] + "</span>" + "<br>" +
+           "<strong>Genre:</strong> <span style='color:red'>" + d["Genre"] + "</span>" + "<br>" +
+           "<strong>Year:</strong> <span style='color:red'>" + d["Year"] + "</span>";
+  })
+
+  svg.call(tip);
+
   svg.selectAll(".bar")
-    .data(data)
+    .data(chartData)
     .enter()
     .append("rect")
     .attr({
       class : "bar",
-      width : function(d) {return scaleObj["scale"](d)},
+      width : function(d) {return scaleObj["scale"](d["Global_Sales"])},
       height: "40",
       y : function(d, i) {return i*50 + 50;},
       x : "10"
-     });
+     })
+    .on('mouseover', tip.show)
+    .on('mouseout', tip.hide)
 }
 
 function gatherAggregates(json) {
@@ -86,15 +101,15 @@ function insertPicture(key) {
   var img = document.createElement("img", {class : `${key}-img`});
 
   img.src = `assets/${key}/${key}.png`; 
-  img.addEventListener('load', function () {
-    // console.log("It's loaded!")
-  })
-  img.onload = function() {
-    console.log("Width: " + this.width);
-    console.log("Height: " + this.height);
-    IMAGE_X_OFFSET = this.width;
-    IMAGE_Y_OFFSET = this.height;
-  }
+  // img.addEventListener('load', function () {
+  //   // console.log("It's loaded!")
+  // })
+  // img.onload = function() {
+  //   console.log("Width: " + this.width);
+  //   console.log("Height: " + this.height);
+  //   IMAGE_X_OFFSET = this.width;
+  //   IMAGE_Y_OFFSET = this.height;
+  // }
 
   var src = document.getElementsByClassName(`${key}`)[0];
    
@@ -115,6 +130,7 @@ function readDataFiles() {
       createBarChart(json[key], key, div, aggregates, scaleObj);
     }
   });
+  document.getElementsByClassName("nintendo-viz")[0].style.marginTop = "50px";
 }
 
 $(document).ready(function() {
