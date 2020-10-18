@@ -8,10 +8,6 @@ const TITLE_Y_OFFSET = 20;
 let IMAGE_X_OFFSET = 387;
 let IMAGE_Y_OFFSET = 0;
 
-function showGif() {
-  console.log("gif");
-}
-
 function createBarChart(chartData, key, div, aggregates, scaleObj) {
 
   var data = [];
@@ -143,7 +139,7 @@ function readDataFiles() {
 
     let aggregates = gatherAggregates(json);
     let scaleObj = createAxis(aggregates);
-
+    
     for (let key in json){
       let div = d3.select('.nintendo-viz').append('div').classed(key,true);
       insertPicture(key, div);

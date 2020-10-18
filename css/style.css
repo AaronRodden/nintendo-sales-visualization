@@ -50,6 +50,17 @@ img {
 }
 
 body {
+  /*background-color: powderblue;*/
+}
+h1 {
+  /*color: blue;*/
+  text-align: center;
+}
+p {
+  color: red;
+}
+
+body {
 	/*background: linear-gradient(to right, red , yellow);*/
 	/*background-color: coral;*/
 	background-color: #e0dcdb;
