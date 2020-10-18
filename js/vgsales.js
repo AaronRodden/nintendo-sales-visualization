@@ -8,15 +8,16 @@ const TITLE_Y_OFFSET = 20;
 let IMAGE_X_OFFSET = 387;
 let IMAGE_Y_OFFSET = 0;
 
+function showGif() {
+  console.log("gif");
+}
+
 function createBarChart(chartData, key, div, aggregates, scaleObj) {
 
   var data = [];
   for (let i = 0; i < chartData.length; i++) {
-    // console.log(chartData[i]);
     data.push(chartData[i]["Global_Sales"]);
   }
-
-  // console.log(data);
 
   var svg = d3.select(`.${key}`)
             .append("svg")
@@ -27,7 +28,28 @@ function createBarChart(chartData, key, div, aggregates, scaleObj) {
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    console.log(d);
+    // TODO: Better data pre-processing would have avoided this...
+    let gifName = d["Name"].replace(':', '');
+    gifName = gifName.replace('/', ' ');
+    gifName = gifName.replace('é', 'e');
+    console.log(gifName)
+
+    let platformName;
+    if (d["Platform"] == "3DS"){
+      platformName = "threeDS";
+    }
+    else {
+      platformName = d["Platform"];
+    }
+
+    var img = document.createElement("img");
+    img.className = "gif";
+    img.src = `assets\\${platformName}\\${gifName}.gif`;
+
+    var src = document.getElementsByClassName(`${platformName}`)[0];
+   
+    src.appendChild(img); 
+
     return "<strong>Name:</strong> <span style='color:red'>" + d["Name"] + "</span>" + "<br>" +
            "<strong>GlobalSales:</strong> <span style='color:red'>" + d["Global_Sales"] + "</span>" + "<br>" +
            "<strong>Genre:</strong> <span style='color:red'>" + d["Genre"] + "</span>" + "<br>" +
@@ -49,6 +71,15 @@ function createBarChart(chartData, key, div, aggregates, scaleObj) {
      })
     .on('mouseover', tip.show)
     .on('mouseout', tip.hide)
+
+  let barElements = document.getElementsByClassName("bar")
+  for (let i = 0; i < barElements.length; i++) {
+    barElements[i].addEventListener("mouseout", function() {
+      var elem = document.getElementsByClassName("gif")[0];
+      elem.remove();
+    });
+  }
+
 }
 
 function gatherAggregates(json) {
@@ -83,8 +114,6 @@ function createAxis(aggregates) {
   var x_axis = d3.svg.axis(scale)
                  .scale(scale);
 
-
-
   //Append group and insert axis
   scaleSvg.append("g")
      .attr("transform", "translate(" + IMAGE_X_OFFSET + "," + (10) + ")")
@@ -100,16 +129,7 @@ function createAxis(aggregates) {
 function insertPicture(key) {
   var img = document.createElement("img", {class : `${key}-img`});
 
-  img.src = `assets/${key}/${key}.png`; 
-  // img.addEventListener('load', function () {
-  //   // console.log("It's loaded!")
-  // })
-  // img.onload = function() {
-  //   console.log("Width: " + this.width);
-  //   console.log("Height: " + this.height);
-  //   IMAGE_X_OFFSET = this.width;
-  //   IMAGE_Y_OFFSET = this.height;
-  // }
+  img.src = `assets/${key}/${key}.png`;
 
   var src = document.getElementsByClassName(`${key}`)[0];
    
@@ -131,6 +151,7 @@ function readDataFiles() {
     }
   });
   document.getElementsByClassName("nintendo-viz")[0].style.marginTop = "50px";
+  document.getElementsByClassName("nintendo-viz")[0].style.marginBottom = "150px";
 }
 
 $(document).ready(function() {
