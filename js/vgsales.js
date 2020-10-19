@@ -32,7 +32,7 @@ function createBarChart(chartData, key, div, aggregates, scaleObj) {
 
     let platformName;
     if (d["Platform"] == "3DS"){
-      platformName = "threeds";
+      platformName = "threeDS";
     }
     else {
       platformName = d["Platform"];
