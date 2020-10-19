@@ -125,7 +125,7 @@ function createAxis(aggregates) {
 function insertPicture(key) {
   var img = document.createElement("img", {class : `${key}-img`});
 
-  img.src = `assets/${key}/${key}.png`;
+  img.src = `assets/${key.toLowerCase()}/${key.toLowerCase()}.png`;
 
   var src = document.getElementsByClassName(`${key}`)[0];
    
