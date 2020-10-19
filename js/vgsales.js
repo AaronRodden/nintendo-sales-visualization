@@ -31,16 +31,16 @@ function createBarChart(chartData, key, div, aggregates, scaleObj) {
 
     let platformName;
     if (d["Platform"] == "3DS"){
-      platformName = "threeDS";
+      platformName = "threeds";
     }
     else {
-      platformName = d["Platform"];
+      platformName = d["Platform"].toLowerCase();
     }
 
     console.log(`Gif source: assets\\${platformName}\\${gifName}.gif`);
     var img = document.createElement("img");
     img.className = "gif";
-    img.src = `assets\\${platformName.toLowerCase()}\\${gifName}.gif`;
+    img.src = `assets\\${platformName}\\${gifName}.gif`;
 
     var src = document.getElementsByClassName(`${platformName}`)[0];
    
