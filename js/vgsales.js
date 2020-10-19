@@ -28,8 +28,7 @@ function createBarChart(chartData, key, div, aggregates, scaleObj) {
     let gifName = d["Name"].replace(':', '');
     gifName = gifName.replace('/', ' ');
     gifName = gifName.replace('é', 'e');
-    console.log(gifName)
-
+    
     let platformName;
     if (d["Platform"] == "3DS"){
       platformName = "threeDS";
@@ -38,6 +37,7 @@ function createBarChart(chartData, key, div, aggregates, scaleObj) {
       platformName = d["Platform"];
     }
 
+    console.log(`Gif source: assets\\${platformName}\\${gifName}.gif`);
     var img = document.createElement("img");
     img.className = "gif";
     img.src = `assets\\${platformName}\\${gifName}.gif`;
@@ -125,6 +125,7 @@ function createAxis(aggregates) {
 function insertPicture(key) {
   var img = document.createElement("img", {class : `${key}-img`});
 
+  console.log(`image source: assets/${key.toLowerCase()}/${key.toLowerCase()}.png`);
   img.src = `assets/${key.toLowerCase()}/${key.toLowerCase()}.png`;
 
   var src = document.getElementsByClassName(`${key}`)[0];
